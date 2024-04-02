@@ -1,7 +1,6 @@
 import events.ProjectileHit;
-import items.empty_item;
-import items.example_uber_item;
-import items.midas_statue;
+//import hm.zelha.particlesfx.util.ParticleSFX;
+import items.soulrender;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -15,7 +14,6 @@ import thirtyvirus.uber.helpers.UberCraftingRecipe;
 import thirtyvirus.uber.helpers.UberRarity;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class UberItemsAddon extends JavaPlugin {
 
@@ -32,6 +30,7 @@ public class UberItemsAddon extends JavaPlugin {
         registerEvents();
         registerUberMaterials();
         registerUberItems();
+//        ParticleSFX.setPlugin(this);
 
         // post confirmation in chat
         getLogger().info(getDescription().getName() + " V: " + getDescription().getVersion() + " has been enabled");
@@ -68,60 +67,53 @@ public class UberItemsAddon extends JavaPlugin {
     //      (the same case for strings, just storeStringInItem and getStringFromItem)
 
     private void registerUberItems() {
-        UberItems.putItem("empty_item", new empty_item(Material.DIAMOND, "Empty UberItem", UberRarity.COMMON,
-                false, false, false, Collections.emptyList(), null));
-
-        UberItems.putItem("example_uber_item", new example_uber_item(Material.WOODEN_SHOVEL, "Example Uber Item",
-                UberRarity.UNFINISHED, false, false, true,
+        UberItems.putItem("Soulrender", new soulrender(Material.NETHERITE_SWORD, "Soulrender",
+                UberRarity.MYTHIC, false, false, true,
                 Arrays.asList(
-                        new UberAbility("Example Ability", AbilityType.NONE, "Adds an enchantment glint to items when they are clicked onto this item in the inventory... because why not? xD"),
-                        new UberAbility("Cooldown Demonstration", AbilityType.LEFT_CLICK, "Makes a sound? Idk you can only do it once every 5 seconds", 5),
-                        new UberAbility("Midas Step", AbilityType.RIGHT_CLICK, "(toggle) every block you step on turns into gold while holding this item")),
+                        new UberAbility("Soul Harvest", AbilityType.NONE, "Upon defeating a mob or player, Soulrender has a chance to collect their soul essence, granting the wielder temporary buffs that increased speed and strength")),
                 new UberCraftingRecipe(Arrays.asList(
-                        UberItems.getMaterial("enchanted_chest").makeItem(1),
-                        UberItems.getMaterial("enchanted_diamond").makeItem(1),
-                        UberItems.getMaterial("enchanted_chest").makeItem(1),
+                        new ItemStack(Material.NETHERITE_INGOT),
+                        UberItems.getMaterial("soul_orb").makeItem(1),
+                        new ItemStack(Material.NETHERITE_INGOT),
                         new ItemStack(Material.AIR),
-                        new ItemStack(Material.STICK, 8),
+                        UberItems.getMaterial("dragon_bone").makeItem(1),
                         new ItemStack(Material.AIR),
+                        UberItems.getMaterial("dragon_bone").makeItem(1),
                         new ItemStack(Material.AIR),
-                        new ItemStack(Material.STICK, 8),
                         new ItemStack(Material.AIR)), false, 1)));
-
-        UberItems.putItem("midas_statue", new midas_statue(Material.TOTEM_OF_UNDYING, "Midas Statue", UberRarity.LEGENDARY,
-                false, false, true,
-                Arrays.asList(
-                        new UberAbility("Midas Step", AbilityType.RIGHT_CLICK, "(toggle) every block you step on turns into gold while holding this item"),
-                        new UberAbility("Midas Touch", AbilityType.NONE, "Turn any mobs into gold")),
-                new UberCraftingRecipe(Arrays.asList(
-                        new ItemStack(Material.AIR),
-                        UberItems.getMaterial("enchanted_diamond").makeItem(64),
-                        new ItemStack(Material.AIR),
-                        new ItemStack(Material.AIR),
-                        new ItemStack(Material.GOLD_BLOCK),
-                        new ItemStack(Material.AIR),
-                        new ItemStack(Material.AIR),
-                        new ItemStack(Material.GOLD_BLOCK),
-                        new ItemStack(Material.AIR)), false, 1 )));
-
     }
     private void registerUberMaterials() {
-        UberItems.putMaterial("enchanted_sponge", new UberMaterial(Material.SPONGE,
-                "Enchanted Sponge", UberRarity.RARE, true, false, false,
-                "idk why I chose sponge, but hey this demonstrates how to make a custom UberMaterial lol",
+        UberItems.putMaterial("dragon_bone", new UberMaterial(Material.BONE,
+                "Dragon Bone", UberRarity.EPIC, true, false, false,
+                "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "A formidable relic harvested from the remains of the mighty " + ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + "Ender Dragon" + ChatColor.GRAY + ".",
+                null));
+
+        UberItems.putMaterial("soulsand_enchanted", new UberMaterial(Material.SOUL_SAND,
+                "Soulsand (Enchanted)", UberRarity.UNCOMMON  , true, false, false,
+                "",
                 new UberCraftingRecipe(Arrays.asList(
                         new ItemStack(Material.AIR),
-                        new ItemStack(Material.SPONGE, 32),
+                        new ItemStack(Material.SOUL_SAND, 32),
                         new ItemStack(Material.AIR),
-                        new ItemStack(Material.SPONGE, 32),
-                        new ItemStack(Material.SPONGE, 32),
-                        new ItemStack(Material.SPONGE, 32),
+                        new ItemStack(Material.SOUL_SAND, 32),
+                        new ItemStack(Material.SOUL_SAND, 32),
+                        new ItemStack(Material.SOUL_SAND, 32),
                         new ItemStack(Material.AIR),
-                        new ItemStack(Material.SPONGE, 32),
+                        new ItemStack(Material.SOUL_SAND, 32),
                         new ItemStack(Material.AIR)), false, 1)));
-        UberItems.putMaterial("thumbnail", new UberMaterial(Material.GOLDEN_APPLE,
-                "Titan Apple", UberRarity.MYTHIC, true, false, false,
-                "" + ChatColor.GRAY + ChatColor.ITALIC + "look at what they /newline " + ChatColor.ITALIC + "need to mimic a /newline " + ChatColor.ITALIC + "fraction of our power",
-                null));
+
+        UberItems.putMaterial("soul_orb", new UberMaterial(Material.ENDER_PEARL,
+                "Soul Orb", UberRarity.UNCOMMON  , true, false, false,
+                "",
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.PLAYER_HEAD),
+                        new ItemStack(Material.GHAST_TEAR),
+                        new ItemStack(Material.PLAYER_HEAD),
+                        new ItemStack(Material.GHAST_TEAR),
+                        UberItems.getMaterial("soulsand_enchanted").makeItem(1),
+                        new ItemStack(Material.GHAST_TEAR),
+                        new ItemStack(Material.PLAYER_HEAD),
+                        new ItemStack(Material.GHAST_TEAR),
+                        new ItemStack(Material.PLAYER_HEAD)), false, 1)));
     }
 }
