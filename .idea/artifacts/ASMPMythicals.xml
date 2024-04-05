@@ -6,6 +6,7 @@
       <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
       <element id="library" level="project" name="Spigot" />
       <element id="library" level="project" name="UberItems API" />
+      <element id="library" level="project" name="ParticleNativeAPI" />
     </root>
   </artifact>
 </component>

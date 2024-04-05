@@ -1,6 +1,13 @@
+package main;
+
+import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
+import com.github.fierioziy.particlenativeapi.core.ParticleNativeCore;
+import com.github.fierioziy.particlenativeapi.plugin.ParticleNativePlugin;
+import events.DeathListener;
 import events.ProjectileHit;
-//import hm.zelha.particlesfx.util.ParticleSFX;
 import items.soulrender;
+import materials.dragonbone;
+import materials.soulorb;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -17,8 +24,14 @@ import java.util.Arrays;
 
 public class UberItemsAddon extends JavaPlugin {
 
-    public void onEnable() {
+    private static UberItemsAddon plugin;
+    public static UberItemsAddon getPlugin()
+    {
+        return plugin;
+    }
 
+    public void onEnable() {
+        plugin = this;
         // enforce UberItems dependancy
         if (Bukkit.getPluginManager().getPlugin("UberItems") == null) {
             this.getLogger().severe("UberItems Addons requires UberItems! disabled because UberItems dependency not found");
@@ -30,7 +43,6 @@ public class UberItemsAddon extends JavaPlugin {
         registerEvents();
         registerUberMaterials();
         registerUberItems();
-//        ParticleSFX.setPlugin(this);
 
         // post confirmation in chat
         getLogger().info(getDescription().getName() + " V: " + getDescription().getVersion() + " has been enabled");
@@ -41,6 +53,7 @@ public class UberItemsAddon extends JavaPlugin {
     }
     private void registerEvents() {
         getServer().getPluginManager().registerEvents(new ProjectileHit(), this);
+        getServer().getPluginManager().registerEvents(new DeathListener(), this);
     }
 
     // NEW UBER ITEM CHECKLIST
@@ -70,7 +83,7 @@ public class UberItemsAddon extends JavaPlugin {
         UberItems.putItem("Soulrender", new soulrender(Material.NETHERITE_SWORD, "Soulrender",
                 UberRarity.MYTHIC, false, false, true,
                 Arrays.asList(
-                        new UberAbility("Soul Harvest", AbilityType.NONE, "Upon defeating a mob or player, Soulrender has a chance to collect their soul essence, granting the wielder temporary buffs that increased speed and strength")),
+                        new UberAbility("Soul Harvest", AbilityType.RIGHT_CLICK, "The Soulrender siphons its stored souls, granting the wielder temporary buffs that increased speed and strength.")),
                 new UberCraftingRecipe(Arrays.asList(
                         new ItemStack(Material.NETHERITE_INGOT),
                         UberItems.getMaterial("soul_orb").makeItem(1),
@@ -83,7 +96,7 @@ public class UberItemsAddon extends JavaPlugin {
                         new ItemStack(Material.AIR)), false, 1)));
     }
     private void registerUberMaterials() {
-        UberItems.putMaterial("dragon_bone", new UberMaterial(Material.BONE,
+        UberItems.putMaterial("dragon_bone", new dragonbone(Material.BONE,
                 "Dragon Bone", UberRarity.EPIC, true, false, false,
                 "" + ChatColor.GRAY + "" + ChatColor.ITALIC + "A formidable relic harvested from the remains of the mighty " + ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + "Ender Dragon" + ChatColor.GRAY + ".",
                 null));
@@ -102,7 +115,7 @@ public class UberItemsAddon extends JavaPlugin {
                         new ItemStack(Material.SOUL_SAND, 32),
                         new ItemStack(Material.AIR)), false, 1)));
 
-        UberItems.putMaterial("soul_orb", new UberMaterial(Material.ENDER_PEARL,
+        UberItems.putMaterial("soul_orb", new soulorb(Material.ENDER_PEARL,
                 "Soul Orb", UberRarity.UNCOMMON  , true, false, false,
                 "",
                 new UberCraftingRecipe(Arrays.asList(
