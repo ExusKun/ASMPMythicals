@@ -1,8 +1,5 @@
 package main;
 
-import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
-import com.github.fierioziy.particlenativeapi.core.ParticleNativeCore;
-import com.github.fierioziy.particlenativeapi.plugin.ParticleNativePlugin;
 import events.DeathListener;
 import events.ProjectileHit;
 import items.soulrender;

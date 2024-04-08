@@ -22,17 +22,21 @@ public class DeathListener implements Listener {
         if(monster.getKiller() != null) {
             if(monster.getKiller() instanceof Player) {
                 Player player = monster.getKiller();
-                if(player.getItemInHand().getItemMeta().getCustomModelData() == 3987001) {
-                    int soulCount = Utilities.getIntFromItem(player.getItemInHand(), "soulCount");
-                    int soulCountMax = Utilities.getIntFromItem(player.getItemInHand(), "soulCountMax");
-                    int rand = (int)(Math.random() * 10) + 1;
-                    if(rand >= 7) {
-                        player.playSound(player.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 1.0F, 1.0F);
-                        if(soulCount < soulCountMax)
-                        {
-                            soulCount++;
-                            Utilities.storeIntInItem(player.getItemInHand(), soulCount, "soulCount");
-                            utils.sendActionBar(player, ChatColor.GRAY + "" + ChatColor.ITALIC + "Soulrender consumes a soul.." + ChatColor.DARK_GRAY + " (" + soulCount + "/" + soulCountMax + ")");
+                if(player.getItemInHand().getItemMeta() != null) {
+                    if(player.getItemInHand().getItemMeta().hasCustomModelData()) {
+                        if(player.getItemInHand().getItemMeta().getCustomModelData() == 3987001) {
+                            int soulCount = Utilities.getIntFromItem(player.getItemInHand(), "soulCount");
+                            int soulCountMax = Utilities.getIntFromItem(player.getItemInHand(), "soulCountMax");
+                            int rand = (int)(Math.random() * 10) + 1;
+                            if(rand >= 7) {
+                                player.playSound(player.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 1.0F, 1.0F);
+                                if(soulCount < soulCountMax)
+                                {
+                                    soulCount++;
+                                    Utilities.storeIntInItem(player.getItemInHand(), soulCount, "soulCount");
+                                    utils.sendActionBar(player, ChatColor.GRAY + "" + ChatColor.ITALIC + "Soulrender consumes a soul.." + ChatColor.DARK_GRAY + " (" + soulCount + "/" + soulCountMax + ")");
+                                }
+                            }
                         }
                     }
                 }
@@ -44,17 +48,21 @@ public class DeathListener implements Listener {
     private void playerDeathEvent(PlayerDeathEvent e){
         Player player = e.getEntity();
         if(!(player.getKiller() == null)) {
-            if(player.getItemInHand().getItemMeta().getCustomModelData() == 3987001) {
-                int soulCount = Utilities.getIntFromItem(player.getItemInHand(), "soulCount");
-                int soulCountMax = Utilities.getIntFromItem(player.getItemInHand(), "soulCountMax");
-                int rand = (int)(Math.random() * 10) + 1;
-                if(rand >= 7) {
-                    player.playSound(player.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 1.0F, 1.0F);
-                    if(soulCount < soulCountMax)
-                    {
-                        soulCount++;
-                        Utilities.storeIntInItem(player.getItemInHand(), soulCount, "soulCount");
-                        utils.sendActionBar(player, ChatColor.GRAY + "" + ChatColor.ITALIC + "Soulrender consumes a soul.." + ChatColor.DARK_GRAY + " (" + soulCount + "/" + soulCountMax + ")");
+            if(player.getItemInHand().getItemMeta() != null) {
+                if(player.getItemInHand().getItemMeta().hasCustomModelData()) {
+                    if(player.getItemInHand().getItemMeta().getCustomModelData() == 3987001) {
+                        int soulCount = Utilities.getIntFromItem(player.getItemInHand(), "soulCount");
+                        int soulCountMax = Utilities.getIntFromItem(player.getItemInHand(), "soulCountMax");
+                        int rand = (int)(Math.random() * 10) + 1;
+                        if(rand >= 7) {
+                            player.playSound(player.getLocation(), Sound.BLOCK_CHORUS_FLOWER_GROW, 1.0F, 1.0F);
+                            if(soulCount < soulCountMax)
+                            {
+                                soulCount++;
+                                Utilities.storeIntInItem(player.getItemInHand(), soulCount, "soulCount");
+                                utils.sendActionBar(player, ChatColor.GRAY + "" + ChatColor.ITALIC + "Soulrender consumes a soul.." + ChatColor.DARK_GRAY + " (" + soulCount + "/" + soulCountMax + ")");
+                            }
+                        }
                     }
                 }
             }

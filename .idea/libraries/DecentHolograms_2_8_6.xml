@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="DecentHolograms-2.8.6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../BuildTools/DecentHolograms-2.8.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
